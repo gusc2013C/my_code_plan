@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1486027547 source:d:\code\最长不降子序列\main.cpp
+	<iostream>
+	<algorithm>
+

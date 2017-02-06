@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1486112491 source:d:\code\ms++\main.cpp
+	<stdio.h>
+	<string.h>
+	<algorithm>
+

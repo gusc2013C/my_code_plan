@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1486286296 source:d:\code\dinic\main.cpp
+	<iostream>
+	<cstring>
+	<queue>
+	<algorithm>
+
