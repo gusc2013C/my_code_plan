@@ -17,6 +17,14 @@ struct pos
 
 int t;
 pos dir[5];
+int r,c,k;
+char m[206][206];
+pos st;
+queue<zt> q;
+bool flag[40][206][206];
+pos tp[15];
+int point = 0;
+bool fin = false;
 
 zt make(int dia,int x,int y,int time)
 {
@@ -30,24 +38,13 @@ zt make(int dia,int x,int y,int time)
 
 int main()
 {
-    cin >> t;
+    freopen("fallout2.in","r",stdin);
+    freopen("fallout2.out","w",stdout);
 
     dir[1].x = 0; dir[1].y = -1;
     dir[2].x = 0; dir[2].y = +1;
     dir[3].x = -1; dir[3].y = 0;
     dir[4].x = +1; dir[4].y = 0;
-
-
-    for (int x = 1;x <= t;x++)
-    {
-        int r,c,k;
-        char m[205][205];
-        pos st;
-        queue<zt> q;
-        bool flag[40][205][205];
-        pos tp[15];
-        int point = 0;
-        bool fin = false;
 
         memset(flag,0,sizeof(flag));
 
@@ -59,7 +56,7 @@ int main()
             }
         }
 
-        cin >> r >> c >> k;
+        cin >> r >> c;
 
         for (int i = 1;i <= r;i++)
         {
@@ -71,11 +68,6 @@ int main()
                 {
                     st.x = i;
                     st.y = j;
-                }
-                else if (m[i][j] == '$')
-                {
-                    tp[++point].x = i;
-                    tp[point].y = j;
                 }
             }
         }
@@ -93,11 +85,12 @@ int main()
             int dia = q.front().dia;
             int time = q.front().time;
 
+
             #ifdef D
                 cout << "x" << x << "y" << y << "dia" << dia << "time" << time << " " << m[x][y] << endl;
             #endif // D
 
-            if (dia == (1 << k) - 1 && m[x][y] == 'E')
+            if (dia == (1 << 5) - 1 && m[x][y] == 'T')
             {
                 cout << time << endl;
                 fin = true;
@@ -106,18 +99,18 @@ int main()
 
             for (int i = 1;i <= 4;i++)
             {
-                if ((m[x+dir[i].x][y+dir[i].y] == '.' || m[x+dir[i].x][y+dir[i].y] == 'S' || m[x+dir[i].x][y+dir[i].y] == 'E')&& !flag[dia][x+dir[i].x][y+dir[i].y])
+                if ((m[x+dir[i].x][y+dir[i].y] == '.' || m[x+dir[i].x][y+dir[i].y] == 'S' || m[x+dir[i].x][y+dir[i].y] == 'T')&& !flag[dia][x+dir[i].x][y+dir[i].y])
                 {
                     flag[dia][x+dir[i].x][y+dir[i].y] = true;
 
                     q.push(make(dia,x+dir[i].x,y+dir[i].y,time+1));
                 }
 
-                else if (m[x+dir[i].x][y+dir[i].y]  <= '4'  && m[x+dir[i].x][y+dir[i].y] >= '0')
+                else if (m[x+dir[i].x][y+dir[i].y]  <= '5'  && m[x+dir[i].x][y+dir[i].y] >= '1')
                 {
                     int temp = m[x+dir[i].x][y+dir[i].y] - '0';
 
-                    int tdia = dia | 1 << temp;
+                    int tdia = dia | 1 << (temp-1);
 
                     if (!flag[tdia][x+dir[i].x][y+dir[i].y])
                     {
@@ -125,7 +118,7 @@ int main()
                         flag[tdia][x+dir[i].x][y+dir[i].y] = true;
                     }
                 }
-                else if (m[x+dir[i].x][y+dir[i].y] == '$')
+                /*else if (m[x+dir[i].x][y+dir[i].y] == '$')
                 {
                     for (int j = 1;j <= point;j++)
                     {
@@ -135,7 +128,7 @@ int main()
                             q.push(make(dia,tp[j].x,tp[j].y,time+1));
                         }
                     }
-                }
+                }*/
             }
 
             q.pop();
@@ -143,7 +136,6 @@ int main()
 
         if (!fin) cout << "oop!" << endl;
 
-    }
 
     return 0;
 }
